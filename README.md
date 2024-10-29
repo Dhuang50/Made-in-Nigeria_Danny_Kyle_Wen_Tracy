@@ -13,13 +13,13 @@ Description:
 Install guide:
 1) Clone the required directory to run the program:
    
-    __$git clone git@github.com:Dhuang50/Made-in-Nigeria_Danny_Kyle_Wen_Tracy.git__
+    $git clone git@github.com:Dhuang50/Made-in-Nigeria_Danny_Kyle_Wen_Tracy.git
 3) Install the required packages
    
-    __$pip install -r requirements.txt__
+    $pip install -r requirements.txt
 
 Launch Code:
 1) Launch the app
    
-   __$python3 \__init__.py \__
+   $python3 \__init__.py 
 
