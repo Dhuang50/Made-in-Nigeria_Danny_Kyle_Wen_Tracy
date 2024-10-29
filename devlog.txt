@@ -1,4 +1,4 @@
-tracyY, dannyH, WenYZ KyleL -- 2024-10-28\n
+tracyY, dannyH, WenYZ KyleL -- 2024-10-28
 
 Corrected labels in diagrams to be more clear, added a sign-out page that was previously missing, flushed out the description 
 of how the editing page can only be accessed by the author of the blog, revised the DB table breakdowns and added more notes
