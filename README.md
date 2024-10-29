@@ -21,5 +21,5 @@ Install guide:
 Launch Code:
 1) Launch the app
    
-   __$python3 __init__.py__
+   __$python3 \__init__.py__
 
