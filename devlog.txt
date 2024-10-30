@@ -17,5 +17,6 @@ Added basic HTML templates and standard html
 tracyY, dannyH, WenYZ, KyleL -- 2024-10-30
 
 Changed Readme Launch code to include cd into directory
+Changed Readme Launch code to include the link to local host
 Fixed file path for launching app.
 Adjusted Target Ship Date. 
