@@ -16,3 +16,4 @@ tracyY, dannyH, WenYZ, KyleL -- 2024-10-30
 
 Changed Readme Launch code to include cd into directory
 Fixed file path for launching app.
+Adjusted Target Ship Date. 
