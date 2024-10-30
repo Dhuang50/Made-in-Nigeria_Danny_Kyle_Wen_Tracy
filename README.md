@@ -16,16 +16,16 @@ Description:
 Install guide:
 1) Clone the required directory to run the program:
    
-    $git clone git@github.com:Dhuang50/Made-in-Nigeria_Danny_Kyle_Wen_Tracy.git
+    __$git clone git@github.com:Dhuang50/Made-in-Nigeria_Danny_Kyle_Wen_Tracy.git__
 2) Move into directory
 
-   $cd Made-in-Nigeria_Danny_Kyle_Wen_Tracy
+   __$cd Made-in-Nigeria_Danny_Kyle_Wen_Tracy__
 4) Install the required packages
    
-    $pip install -r requirements.txt
+    __$pip install -r requirements.txt__
 
 Launch Code:
 1) Launch the app
    
-   $python3 \__init__.py 
+   __$python3 app/\_\_init\_\_.py__
 

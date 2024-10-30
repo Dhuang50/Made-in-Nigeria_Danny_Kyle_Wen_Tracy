@@ -10,3 +10,10 @@ tracyY, dannyH, WenYZ, KyleL -- 2024-10-29
 Added a pdf of the digital team flag
 Added the functional flask app 
 The "Install Guides" and "Launch Codes" section are also filled in in the readme
+
+
+tracyY, dannyH, WenYZ, KyleL -- 2024-10-30
+
+Changed Readme Launch code to include cd into directory
+Fixed file path for launching app.
+Adjusted Target Ship Date. 
