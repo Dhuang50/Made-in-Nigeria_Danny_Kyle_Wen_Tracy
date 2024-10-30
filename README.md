@@ -31,4 +31,6 @@ Launch Code:
 2) Launch the app
    
    __$python3 app/\_\_init\_\_.py__
+3) Go to local host, copy link below and paste into 
+   __http://127.0.0.1:5000__ 
 
