@@ -11,6 +11,8 @@ Added a pdf of the digital team flag
 Added the functional flask app 
 The "Install Guides" and "Launch Codes" section are also filled in in the readme
 
+tracyY -- 2024-10-29
+Added basic HTML templates and standard html 
 
 tracyY, dannyH, WenYZ, KyleL -- 2024-10-30
 
