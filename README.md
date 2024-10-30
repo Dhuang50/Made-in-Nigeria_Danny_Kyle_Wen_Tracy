@@ -3,6 +3,7 @@
 MaB (Making a Blog) by Made_in_Nigeria
 
 Roles:
+
 Danny Huang (PM) - Setting up SQLite3 database with required tables
 
 Kyle Lee - HTML Templates and Jinja
