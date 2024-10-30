@@ -14,23 +14,23 @@ Tracy Ye - Hosting through Flask and routes between pages
 ## Description:
 
 ## Install guide:
-1) Clone the required directory to run the program:
+### 1) Clone the required directory to run the program:
    
     __$git clone git@github.com:Dhuang50/Made-in-Nigeria_Danny_Kyle_Wen_Tracy.git__
-2) Move into directory
+### 2) Move into directory
 
    __$cd Made-in-Nigeria_Danny_Kyle_Wen_Tracy__
-3) Install the required packages
+### 3) Install the required packages
    
     __$pip install -r requirements.txt__
 
 ## Launch Code:
-1) Move into directory
+### 1) Move into directory
 
    __$cd Made-in-Nigeria_Danny_Kyle_Wen_Tracy__
-2) Launch the app
+### 2) Launch the app
    
    __$python3 app/\_\_init\_\_.py__
-3) Go to local host, copy link below and paste into 
+### 3) Go to local host, copy link below and paste into 
    __http://127.0.0.1:5000__ 
 
