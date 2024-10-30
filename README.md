@@ -11,9 +11,9 @@ Wen Zhang - Allowing for user sessions and requests
 
 Tracy Ye - Hosting through Flask and routes between pages
 
-Description:
+## Description:
 
-Install guide:
+## Install guide:
 1) Clone the required directory to run the program:
    
     __$git clone git@github.com:Dhuang50/Made-in-Nigeria_Danny_Kyle_Wen_Tracy.git__
@@ -24,7 +24,7 @@ Install guide:
    
     __$pip install -r requirements.txt__
 
-Launch Code:
+## Launch Code:
 1) Move into directory
 
    __$cd Made-in-Nigeria_Danny_Kyle_Wen_Tracy__
