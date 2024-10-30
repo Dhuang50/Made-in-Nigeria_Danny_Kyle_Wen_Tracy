@@ -17,7 +17,10 @@ Install guide:
 1) Clone the required directory to run the program:
    
     $git clone git@github.com:Dhuang50/Made-in-Nigeria_Danny_Kyle_Wen_Tracy.git
-3) Install the required packages
+2) Move into directory
+
+   $cd Made-in-Nigeria_Danny_Kyle_Wen_Tracy
+4) Install the required packages
    
     $pip install -r requirements.txt
 
