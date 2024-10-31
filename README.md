@@ -9,6 +9,16 @@ MaB (Making a Blog) by Made_in_Nigeria
 - **Tracy Ye**: Hosting with Flask and routing between pages
 ## Description:
 
+## A blog website that will allow users to make and edit their own blogs and view other peoples' blogs
+
+'''
+    Users can:
+        - View a discovery page of all posts which is sorted by most recent at the top
+        - Create their own posts
+        - Edit only their own posts
+        - View other people's posts
+'''
+
 ## Install guide:
 ### 1) Clone the required directory to run the program:
 ```  
