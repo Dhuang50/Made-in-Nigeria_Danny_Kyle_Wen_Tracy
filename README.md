@@ -2,36 +2,36 @@
 
 MaB (Making a Blog) by Made_in_Nigeria
 
-Roles:
-
-Danny Huang (PM) - Setting up SQLite3 database with required tables
-
-Kyle Lee - HTML Templates and Jinja
-
-Wen Zhang - Allowing for user sessions and requests 
-
-Tracy Ye - Hosting through Flask and routes between pages
-
+## Team Members Roles:
+- **Danny Huang (PM)**: Setting up SQLite3 database with required tables
+- **Kyle Lee**: HTML Templates and Jinja
+- **Wen Zhang**: User sessions and request handling
+- **Tracy Ye**: Hosting with Flask and routing between pages
 ## Description:
 
 ## Install guide:
 ### 1) Clone the required directory to run the program:
-   
-    __$git clone git@github.com:Dhuang50/Made-in-Nigeria_Danny_Kyle_Wen_Tracy.git__
+```  
+    $git clone git@github.com:Dhuang50/Made-in-Nigeria_Danny_Kyle_Wen_Tracy.git
+```
 ### 2) Move into directory
-
-   __$cd Made-in-Nigeria_Danny_Kyle_Wen_Tracy__
+```
+   $cd Made-in-Nigeria_Danny_Kyle_Wen_Tracy
+```
 ### 3) Install the required packages
-   
-    __$pip install -r requirements.txt__
-
+```
+    $pip install -r requirements.txt
+```
 ## Launch Code:
 ### 1) Move into directory
-
-   __$cd Made-in-Nigeria_Danny_Kyle_Wen_Tracy__
+```
+   $cd Made-in-Nigeria_Danny_Kyle_Wen_Tracy
+```
 ### 2) Launch the app
-   
-   __$python3 app/\_\_init\_\_.py__
+```   
+   $python3 app/\_\_init\_\_.py
+```
 ### 3) Go to local host, copy link below and paste into 
-   __http://127.0.0.1:5000__ 
-
+```
+   http://127.0.0.1:5000
+```
