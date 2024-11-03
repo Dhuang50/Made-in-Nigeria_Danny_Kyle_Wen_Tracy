@@ -12,7 +12,7 @@ Added the functional flask app
 The "Install Guides" and "Launch Codes" section are also filled in in the readme
 
 tracyY -- 2024-10-29
-Added basic HTML templates and standard html 
+Added basic HTML templatess and standard html 
 
 tracyY, dannyH, WenYZ, KyleL -- 2024-10-30
 
@@ -26,3 +26,7 @@ tracyY, dannyH, WenYZ, KyleL -- 2024-10-31
 The design doc has been replaced with the final verion. Adjusted the Readme text to display contents in a more easily 
 digestible format. The project description has been added to the Readme. Updated requirements.txt and __init__.py with 
 a new module. 
+
+dannyH -- 2024-11-3
+
+Created database.py and added methods to add information into database. 
