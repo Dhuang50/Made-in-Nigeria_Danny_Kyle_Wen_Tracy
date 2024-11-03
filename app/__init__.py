@@ -18,19 +18,7 @@ from flask import request
 from flask import session
 from flask import redirect
 
-# DB base
-
-'''
-db = squlite3.connect("data.db")
-c = db.cursor()
-
-c.execute("CREATE TABLE accounts(username TEXT, password TEXT)")
-c.execute("CREATE TABLE blogs(owner TEXT, blogtitle TEXT)")
-# c.execute("CREATE TABLE username_blogtitle(entry# INTEGER, entry TEXT)")
-
-db.commit()
-db.close()
-'''
+import database
 
 # flask hosting base
 
