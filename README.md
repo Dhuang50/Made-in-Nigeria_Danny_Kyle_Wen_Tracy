@@ -9,7 +9,7 @@ MaB (Making a Blog) by Made_in_Nigeria
 - **Tracy Ye**: Hosting with Flask and routing between pages
 ## Description:
 
-## A blog website that will allow users to make and edit their own blogs and view other peoples' blogs
+### A blog website that will allow users to make and edit their own blogs and view other peoples' blogs
 
 ```
     Users can:
