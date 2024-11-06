@@ -32,11 +32,10 @@ def root():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if 'username' in session:
+    if 'username' in session: # skip login
         return redirect(url_for('dashboard'))
     else:
-        session['username'] = request.args['username']
-        return render_template("login.html", uname = session['username'])
+        return render_template("login.html")
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
@@ -44,7 +43,12 @@ def signup():
 
 @app.route("/user", methods=['GET', 'POST'])
 def dashboard():
-    return render_template("dashboard.html", uname = session['username'])
+    # addAccount(request.forms['username'], request.forms['pw'])
+    if 'username' in session: # skip login
+        return render_template("dashboard.html", uname = session['username'], passw = "grab this stuff from db")
+    else:
+        session['username'] = request.form['username']
+        return render_template("dashboard.html", uname = session['username'], passw = request.form['pw'])
 
 @app.route("/edit", methods=['GET', 'POST'])
 def edit_page():
@@ -56,7 +60,7 @@ def create_page():
 
 @app.route("/view", methods=['GET', 'POST'])
 def view():
-    render_template("view.html")
+    return render_template("view.html")
 
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
