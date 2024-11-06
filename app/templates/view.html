@@ -16,17 +16,26 @@
 
     <br><br>
 
-    {% for owner, blogtitle, blogID, blogEntry in zip(owners, blogtitles, blogIDs, blogEntries) %}
-        <div>
-            <h2>{{ blogtitle }}</h2>
-            <p>By: {{ owner }}</p>
-            <p>{{ blogEntry }}</p>
-            <form action="/edit" method="get">
-                <input type="hidden" name="blogID" value="{{ blogID }}">
-                <button type="submit">Edit</button>
-            </form>
-            <br>
-        </div>
-    {% endfor %}
+    <h1>Blog Entries</h1>
+
+    {% if owners %}
+        {% for i in range(owners|length) %}
+            <h2>{{ owners[i] }} - {{ blogtitles[i] }}</h2>
+            {% for j in range(blogIDs|length) %}
+                {% if j // owners|length == i %}
+                    <div>
+                        <p>{{ blogEntries[j] }}</p>
+                        <form action="/edit" method="get">
+                            <input type="hidden" name="blogID" value="{{ blogIDs[j] }}">
+                            <button type="submit">Edit</button>
+                        </form>
+                        <br>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <p>No blog entries found.</p>
+    {% endif %}
 </body>
 </html>

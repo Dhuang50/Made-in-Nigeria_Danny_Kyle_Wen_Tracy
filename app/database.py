@@ -11,10 +11,9 @@ import sqlite3
 
 db = sqlite3.connect("data.db")
 c = db.cursor()
-if (c.execute("SELECT * FROM sqlite_master WHERE type='table' AND name='accounts'").fetchall() == []):
-    c.execute("CREATE TABLE accounts(username TEXT, password TEXT)")
-    c.execute("CREATE TABLE blogs(owner TEXT, blogtitle TEXT)")
-    # c.execute("CREATE TABLE username_blogtitle(entryID INTEGER, entry TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS accounts(username TEXT, password TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS blogs(owner TEXT, blogtitle TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS username_blogtitle(entryID INTEGER, entry TEXT)")
 db.commit()
 db.close()
 
@@ -29,16 +28,22 @@ def addAccount(username, password):
 def addBlog(owner, blogtitle):
     db = sqlite3.connect("data.db")
     c = db.cursor()
-    c.execute(f"Insert INTO blogs VALUES ({owner}, {blogtitle})")
+    c.execute(f"Insert INTO blogs VALUES ('{owner}', '{blogtitle}')")
     db.commit()
     db.close()
 
 def addentry(owner, blogtitle, entryID, entry):
     db = sqlite3.connect("data.db")
     c = db.cursor()
-    c.execute(f"Insert INTO {owner}_{blogtitle} VALUES ({entryID}, {entry})")
+    c.execute(f"Insert INTO {owner}_{blogtitle} VALUES ('{entryID}', '{entry}')")
     db.commit()
     db.close()
+
+def viewAccount(username):
+    db = sqlite3.connect("data.db")
+    c = db.cursor()
+    c.execute(f"SELECT password from accounts WHERE username = '{username}'")
+    return c.fetchall()
 
 def get_blog():
     db = sqlite3.connect("data.db")
@@ -56,4 +61,4 @@ def get_blog():
     db.close()
     return blogEntries
     
-    
+
