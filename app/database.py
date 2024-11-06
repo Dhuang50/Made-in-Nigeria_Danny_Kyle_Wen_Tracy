@@ -39,3 +39,21 @@ def addentry(owner, blogtitle, entryID, entry):
     c.execute(f"Insert INTO {owner}_{blogtitle} VALUES ({entryID}, {entry})")
     db.commit()
     db.close()
+
+def get_blog():
+    db = sqlite3.connect("data.db")
+    c = db.cursor()
+    c.execute("SELECT owner, blogtitle FROM blogs")
+    blogEntries = {}
+    for owner, blogtitle in blogs:
+        table_name = f"{owner}_{blogtitle}"
+        try:
+            c.execute(f"SELECT entryID, entry FROM {table_name}")
+            entries = c.fetchall()  
+            blogEntries[(owner, blogtitle)] = entries
+        except sqlite3.OperationalError: 
+            blogEntries[(owner, blogtitle)] = []
+    db.close()
+    return blogEntries
+    
+    
