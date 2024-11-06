@@ -5,7 +5,20 @@
     </head>
 
     <body>
+        <h1>Blog Entries</h1>
 
+        {% if owners %}
+            {% for i in range(0, owners|length) %}
+                <h2>{{ owners[i] }} - {{ blogtitles[i] }}</h2>
+                {% for j in range(0, blogIDs|length) %}
+                    {% if j // owners|length == i %}
+                        <p><strong>Entry ID {{ blogIDs[j] }}:</strong> {{ blogEntries[j] }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% else %}
+            <p>No blogs available.</p>
+        {% endif %}
         viewing page
         
         <br><br>
