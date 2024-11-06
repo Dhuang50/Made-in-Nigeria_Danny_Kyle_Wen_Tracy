@@ -14,17 +14,28 @@ c = db.cursor()
 if (c.execute("SELECT * FROM sqlite_master WHERE type='table' AND name='accounts'").fetchall() == []):
     c.execute("CREATE TABLE accounts(username TEXT, password TEXT)")
     c.execute("CREATE TABLE blogs(owner TEXT, blogtitle TEXT)")
-    c.execute("CREATE TABLE username_blogtitle(entryID INTEGER, entry TEXT)")
-
-def addAccount(username, password):
-    c.execute(f"INSERT INTO accounts VALUES ({username}, {password})")
-
-def addBlog(owner, blogtitle):
-    c.execute(f"Insert INTO blogs VALUES ({owner}, {blogtitle})")
-
-def addentry(owner, blogtitle, entryID, entry):
-    c.execute(f"Insert INTO {owner}_{blogtitle} VALUES ({entryID}, {entry})")
-    
+    # c.execute("CREATE TABLE username_blogtitle(entryID INTEGER, entry TEXT)")
 db.commit()
 db.close()
 
+
+def addAccount(username, password):
+    db = sqlite3.connect("data.db")
+    c = db.cursor()
+    c.execute(f"INSERT INTO accounts VALUES ('{username}', '{password}')")
+    db.commit()
+    db.close()
+
+def addBlog(owner, blogtitle):
+    db = sqlite3.connect("data.db")
+    c = db.cursor()
+    c.execute(f"Insert INTO blogs VALUES ({owner}, {blogtitle})")
+    db.commit()
+    db.close()
+
+def addentry(owner, blogtitle, entryID, entry):
+    db = sqlite3.connect("data.db")
+    c = db.cursor()
+    c.execute(f"Insert INTO {owner}_{blogtitle} VALUES ({entryID}, {entry})")
+    db.commit()
+    db.close()

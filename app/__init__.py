@@ -32,6 +32,8 @@ def root():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    if (request.method == "POST"):
+        database.addAccount(request.form['username'], request.form['pw'])
     if 'username' in session: # skip login
         return redirect(url_for('dashboard'))
     else:
@@ -43,7 +45,6 @@ def signup():
 
 @app.route("/user", methods=['GET', 'POST'])
 def dashboard():
-    # addAccount(request.forms['username'], request.forms['pw'])
     if 'username' in session: # skip login
         return render_template("dashboard.html", uname = session['username'], passw = "grab this stuff from db")
     else:
