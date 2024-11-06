@@ -38,6 +38,11 @@ def addentry(owner, blogtitle, entryID, entry):
     c.execute(f"Insert INTO {owner}_{blogtitle} VALUES ('{entryID}', '{entry}')")
     db.commit()
     db.close()
+def accountExit(username):
+    db = sqlite3.connect("data.db")
+    c = db.cursor()
+    c.execute(f"SELECT * from accounts WHERE usernmae = '{username}")
+    return c.fetchall() != []
 
 def viewAccount(username):
     db = sqlite3.connect("data.db")
@@ -45,10 +50,17 @@ def viewAccount(username):
     c.execute(f"SELECT password from accounts WHERE username = '{username}'")
     return c.fetchall()
 
+def viewAll():
+    db = sqlite3.connect("data.db")
+    c = db.cursor()
+    c.execute(f"SELECT * from accounts")
+    return c.fetchall()
+
 def get_blog():
     db = sqlite3.connect("data.db")
     c = db.cursor()
     c.execute("SELECT owner, blogtitle FROM blogs")
+    blogs = c.fetchall()
     blogEntries = {}
     for owner, blogtitle in blogs:
         table_name = f"{owner}_{blogtitle}"
@@ -60,5 +72,7 @@ def get_blog():
             blogEntries[(owner, blogtitle)] = []
     db.close()
     return blogEntries
+
+
     
 
