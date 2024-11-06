@@ -1,20 +1,32 @@
 <!DOCTYPE html>
-<html> 
-    <head>
-        <title> </title>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Blogs</title>
+</head>
+<body>
+    <h1>Viewing Page</h1>
+    
+    <br><br>
 
-    <body>
+    <form action="/" method="get">
+        <button type="submit">Return Home</button>
+    </form>
 
-        viewing page
-        
-        <br><br>
+    <br><br>
 
-        <form action="/">
-            <input type="submit" value="Return Home" name="Return Home">
-        </form>
-
-    </body>
-
+    {% for owner, blogtitle, blogID, blogEntry in zip(owners, blogtitles, blogIDs, blogEntries) %}
+        <div>
+            <h2>{{ blogtitle }}</h2>
+            <p>By: {{ owner }}</p>
+            <p>{{ blogEntry }}</p>
+            <form action="/edit" method="get">
+                <input type="hidden" name="blogID" value="{{ blogID }}">
+                <button type="submit">Edit</button>
+            </form>
+            <br>
+        </div>
+    {% endfor %}
+</body>
 </html>
-
