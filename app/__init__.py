@@ -61,6 +61,18 @@ def create_page():
 
 @app.route("/view", methods=['GET', 'POST'])
 def view():
+    blogs = get_blog()
+    owners = []
+    blogtitles = []
+    blogIDs = []
+    blogEntries = []
+    for (owner, blogtitle), entries in blogs.items():
+        owners += owner
+        blogtitles += blogtitle
+        if entries:
+            for entryID, entry in entries:
+                blogIDs += entryID
+                blogEntries += entry
     return render_template("view.html")
 
 @app.route("/logout", methods=['GET', 'POST'])
