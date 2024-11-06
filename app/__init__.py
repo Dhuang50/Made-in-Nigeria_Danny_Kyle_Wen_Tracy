@@ -46,10 +46,11 @@ def signup():
 @app.route("/user", methods=['GET', 'POST'])
 def dashboard():
     if 'username' in session: # skip login
-        return render_template("dashboard.html", uname = session['username'], passw = "grab this stuff from db")
+        return render_template("dashboard.html", uname = session['username'], passw = database.viewAccount(request.form['username'])[0][0])
     else:
-        session['username'] = request.form['username']
-        return render_template("dashboard.html", uname = session['username'], passw = request.form['pw'])
+        if request.form['pw'] == database.viewAccount(request.form['username'])[0][0]:
+            session['username'] = request.form['username']
+            return render_template("dashboard.html", uname = session['username'], passw = request.form['pw'])
 
 @app.route("/edit", methods=['GET', 'POST'])
 def edit_page():
