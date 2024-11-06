@@ -30,3 +30,7 @@ a new module.
 dannyH -- 2024-11-3
 
 Created database.py and added methods to add information into database. 
+
+tracyY -- 2024-11-5
+
+Made creating tables conditional, added to requirements.txt, created temporary links between webpages.
