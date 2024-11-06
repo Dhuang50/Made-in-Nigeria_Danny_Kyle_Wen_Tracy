@@ -13,7 +13,7 @@ db = sqlite3.connect("data.db")
 c = db.cursor()
 c.execute("CREATE TABLE IF NOT EXISTS accounts(username TEXT, password TEXT)")
 c.execute("CREATE TABLE IF NOT EXISTS blogs(owner TEXT, blogtitle TEXT)")
-# c.execute("CREATE TABLE IF NOT EXISTS username_blogtitle(entryID INTEGER, entry TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS username_blogtitle(entryID INTEGER, entry TEXT)")
 db.commit()
 db.close()
 
@@ -45,8 +45,20 @@ def viewAccount(username):
     c.execute(f"SELECT password from accounts WHERE username = '{username}'")
     return c.fetchall()
 
-def viewAll():
+def get_blog():
     db = sqlite3.connect("data.db")
     c = db.cursor()
-    c.execute("SELECT * FROM accounts")
-    return c.fetchall()
+    c.execute("SELECT owner, blogtitle FROM blogs")
+    blogEntries = {}
+    for owner, blogtitle in blogs:
+        table_name = f"{owner}_{blogtitle}"
+        try:
+            c.execute(f"SELECT entryID, entry FROM {table_name}")
+            entries = c.fetchall()  
+            blogEntries[(owner, blogtitle)] = entries
+        except sqlite3.OperationalError: 
+            blogEntries[(owner, blogtitle)] = []
+    db.close()
+    return blogEntries
+    
+
