@@ -81,23 +81,44 @@ def edit_page():
 
 @app.route("/create", methods=['GET', 'POST'])
 def create_page():
-    return render_template("create_page.html")
+    if 'username' in session:
+        if request.method =="POST":
+            database.addBlog(session['username'], request.form['blog_title'])
+            flash(f"Blog {request.form['blog_title']} Created Successfully.")
+            return redirect(url_for('dashboard'))
+        return render_template("create_page.html", uname = session['username'])
+    else:
+        return redirect(url_for('login'))
 
 @app.route("/view", methods=['GET', 'POST'])
 def view():
-    blogs = database.get_blog()
-    owners = []
-    blogtitles = []
-    blogIDs = []
-    blogEntries = []
-    for (owner, blogtitle), entries in blogs.items():
-        owners.append(owner)
-        blogtitles.append(blogtitle)
-        if entries:
-            for entryID, entry in entries:
-                blogIDs.append(entryID)
-                blogEntries.append(entry)
-    return render_template("view.html", owners=owners, blogtitles=blogtitles, blogIDs=blogIDs, blogEntries=blogEntries)
+    if 'username' in session:
+        blogs = database.get_blog()
+        owners = []
+        blogtitles = []
+        blogIDs = []
+        blogEntries = []
+        for (owner, blogtitle), entries in blogs.items():
+            owners.append(owner)
+            blogtitles.append(blogtitle)
+            if entries:
+                for entryID, entry in entries:
+                    blogIDs.append(entryID)
+                    blogEntries.append(entry)
+        return render_template("view.html", owners=owners, blogtitles=blogtitles, blogIDs=blogIDs, blogEntries=blogEntries)
+    else:
+        return redirect(url_for('login'))
+    
+@app.route("/addEntry", methods=['GET', 'POST'])
+def add():
+    if 'username' in session:
+        if request.method =="POST":
+            database.addentry(session['username'], session['blogTitle'], request.form['entryTitle'], request.form['entryContent'])
+            flash("New Entry Added Successfully.")
+            return redirect(url_for('view'))
+        return render_template("add.html", uname = session['username'], blogtitle = session['blogTitle'])
+    else:
+        return redirect(url_for('login'))
 
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
