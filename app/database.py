@@ -40,11 +40,7 @@ def addBlog(owner, blogtitle):
     db = sqlite3.connect("data.db")
     c = db.cursor()
     c.execute(f"Insert INTO blogs VALUES ('{owner}', '{blogtitle}', 0)")
-<<<<<<< HEAD
-    c.execute(f"CREATE TABLE IF NOT EXISTS '{owner}_{blogtitle}'(entryID INTEGER, entryTitle, entry TEXT)")
-=======
     c.execute(f"CREATE TABLE IF NOT EXISTS '{owner}{blogtitle}'(entryID INTEGER, entryTitle, entry TEXT)")
->>>>>>> da0659ea8c48eec2d2e197f410c4df0894dfb262
     db.commit()
     db.close()
 
@@ -94,15 +90,6 @@ def get_blog():
     db.close()
     return blogEntries
 
-<<<<<<< HEAD
-# def blogsFrom(username):
-#     db = sqlite3.connect("data.db")
-#     c = db.cursor()
-#     c.execute(f"SELECT * from blogs WHERE owner = '{username}'")
-#     blogs = c.fetchall()
-#     
-#     return c.fetchall()
-=======
 def get_entries(username, blogtitle):
     db = sqlite3.connect("data.db")
     c = db.cursor()
@@ -127,6 +114,4 @@ def edit_entry(username, blogtitle, entryID, entryTitle, entry):
     
 
 
->>>>>>> da0659ea8c48eec2d2e197f410c4df0894dfb262
     
-

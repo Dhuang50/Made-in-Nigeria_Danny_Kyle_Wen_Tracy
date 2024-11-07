@@ -32,20 +32,6 @@ def root():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-<<<<<<< HEAD
-    if session.pop('signup_success', None):
-        flash("Account created successfully! Please log in.")
-    elif request.method == "POST":
-        username = request.form['username']
-        password = request.form['pw']
-        user = database.viewAccount(username)
-        
-        if user:
-            stored_password = "".join(user[0]) # must join, is tuple
-            if password == stored_password:
-                session['username'] = username
-                return redirect(url_for('dashboard'))
-=======
     if 'username' in session:
         return redirect(url_for('dashboard'))
     else:
@@ -63,7 +49,6 @@ def login():
                     return redirect(url_for('dashboard'))
                 else:
                     flash("Incorrect password. Please try again.")
->>>>>>> da0659ea8c48eec2d2e197f410c4df0894dfb262
             else:
                 flash("No account found with that username. Please sign up.")
         
@@ -87,16 +72,7 @@ def signup():
 def dashboard():
     if 'username' in session:
         user = database.viewAccount(session['username'])
-<<<<<<< HEAD
-        if user:
-            ###
-            return render_template("dashboard.html", uname = session['username'])
-        else:
-            flash("User not found.")
-            return redirect(url_for('login'))
-=======
         return render_template("dashboard.html", uname=session['username'])
->>>>>>> da0659ea8c48eec2d2e197f410c4df0894dfb262
     else:
         return redirect(url_for('login'))
 
