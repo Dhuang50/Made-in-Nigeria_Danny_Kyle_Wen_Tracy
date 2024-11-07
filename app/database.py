@@ -32,9 +32,12 @@ def addBlog(owner, blogtitle):
     db.commit()
     db.close()
 
-def addentry(owner, blogtitle, entryID, entry):
+def addentry(owner, blogtitle, entry):
     db = sqlite3.connect("data.db")
     c = db.cursor()
+    c.execute(f"SELECT entryCount FROM blogs WHERE (owner = '{owner}' AND blogtitle = '{blogtitle}'")
+    print(c.fetchall())
+    entryID = c.fetchall()[0]+1
     c.execute(f"Insert INTO {owner}{blogtitle} VALUES ('{entryID}', '{entry}')")
     db.commit()
     db.close()
