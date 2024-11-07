@@ -11,8 +11,20 @@ import sqlite3
 
 db = sqlite3.connect("data.db")
 c = db.cursor()
-c.execute("CREATE TABLE IF NOT EXISTS accounts(username TEXT, password TEXT)")
-c.execute("CREATE TABLE IF NOT EXISTS blogs(owner TEXT, blogtitle TEXT, entryCount INTEGER)")
+c.execute('''
+          CREATE TABLE IF NOT EXISTS accounts(
+              username TEXT PRIMART KEY, 
+              password_hash TEXT NOT NULL
+              )
+          '''
+        )
+c.execute('''
+          CREATE TABLE IF NOT EXISTS blogs(
+              owner TEXT NOT NULL, 
+              blogtitle TEXT NOT NULL, 
+              entryCount INTEGER NOT NULL)
+          '''
+        )
 db.commit()
 db.close()
 
