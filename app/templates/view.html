@@ -17,26 +17,20 @@
 
     <br><br>
 
-    <h1>Blog Entries</h1>
-
-    {% if owners %}
-        {% for i in range(owners|length) %}
-            <h2>{{ owners[i] }} - {{ blogtitles[i] }}</h2>
-            {% for j in range(blogIDs|length) %}
-                {% if j // owners|length == i %}
-                    <div>
-                        <p>{{ blogEntries[j] }}</p>
-                        <form action="/edit" method="get">
-                            <input type="hidden" name="blogID" value="{{ blogIDs[j] }}">
-                            <button type="submit">Edit</button>
-                        </form>
-                        <br>
-                    </div>
-                {% endif %}
-            {% endfor %}
+    {% if blogs %}
+        {% for owner, blogtitle in blogs %}
+            <div>
+                <h3>{{ owner }} - {{ blogtitle }}</h3>
+                <a href="/view/{{ owner }}/{{ blogtitle }}">View Blog</a>
+                <!-- Submit button to add new entries -->
+                <form method="POST" action="/submit/{{ owner }}/{{ blogtitle }}">
+                    <button type="submit">Submit a New Entry</button>
+                </form>
+            </div>
         {% endfor %}
     {% else %}
-        <p>No blog entries found.</p>
+        <p>No blogs found.</p>
     {% endif %}
+
 </body>
 </html>

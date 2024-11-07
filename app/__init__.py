@@ -35,7 +35,9 @@ def login():
     if 'username' in session:
         return redirect(url_for('dashboard'))
     else:
-        if request.method == "POST":
+        if session.pop('signup_success', None):
+            flash("Account created successfully! Please log in.")
+        elif request.method == "POST":
             username = request.form['username']
             password = request.form['pw']
             user = database.viewAccount(username)
@@ -61,6 +63,7 @@ def signup():
             flash("Username already exists. Please choose a different username.")
         else:
             database.addAccount(username, password)
+            session['signup_success'] = True
             return redirect(url_for('login'))
     
     return render_template("signup.html")
@@ -69,7 +72,7 @@ def signup():
 def dashboard():
     if 'username' in session:
         user = database.viewAccount(session['username'])
-        return render_template("dashboard.html", uname=session['username'], passw=user[0][0])
+        return render_template("dashboard.html", uname=session['username'])
     else:
         flash("You need to log in first.")
         return redirect(url_for('login'))
@@ -84,7 +87,7 @@ def create_page():
         if request.method =="POST":
             database.addBlog(session['username'], request.form['blog_title'])
             flash(f"Blog {request.form['blog_title']} Created Successfully.")
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('view'))
         return render_template("create_page.html", uname = session['username'])
     else:
         return redirect(url_for('login'))
@@ -95,19 +98,16 @@ def view():
         blogs = database.get_blog()
         owners = []
         blogtitles = []
-        blogIDs = []
-        blogEntries = []
-        for (owner, blogtitle), entries in blogs.items():
+        for (owner, blogtitle) in blogs:
             owners.append(owner)
             blogtitles.append(blogtitle)
-            if entries:
-                for entryID, entry in entries:
-                    blogIDs.append(entryID)
-                    blogEntries.append(entry)
-        return render_template("view.html", owners=owners, blogtitles=blogtitles, blogIDs=blogIDs, blogEntries=blogEntries)
-    else:
-        return redirect(url_for('login'))
-    
+        return render_template("view.html", owners=owners, blogtitles=blogtitles)
+
+@app.route("/view/<owner>/<blogtitle>", methods=['GET', 'POST'])
+def viewBlog(owner, blogtitle):
+    entries = database.getBlog(owner,blogtitle)
+    return render_template("viewBlog.html", owner=owner, blogtitle=blogtitle, entries=entries)
+
 @app.route("/addEntry", methods=['GET', 'POST'])
 def add():
     if 'username' in session:
@@ -122,6 +122,7 @@ def add():
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
     session.pop('username', None)
+    session.clear()
     flash("You have been logged out.")
     return redirect(url_for('root'))
 

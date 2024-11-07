@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css') }}">
+    <title>View Blogs</title>
+</head>
+<body>
+    <form action="/" method="get">
+        <button type="submit">Return Home</button>
+    </form>
+    <h1>Viewing Page</h1>
+    <h2>Blog Entries:</h2>
+
+    {% if entries %}
+        <ul>
+            {% for entryID, entry in entries %}
+                <li>
+                    <strong>Entry {{ entryID }}:</strong> {{ entry }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No entries yet.</p>
+    {% endif %}
+
+</body>
+</html>
