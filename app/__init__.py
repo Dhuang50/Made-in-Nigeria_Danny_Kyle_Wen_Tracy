@@ -29,7 +29,9 @@ def root():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method == "POST":
+    if session.pop('signup_success', None):
+        flash("Account created successfully! Please log in.")
+    elif request.method == "POST":
         username = request.form['username']
         password = request.form['pw']
         user = database.viewAccount(username)
@@ -55,6 +57,7 @@ def signup():
             flash("Username already exists. Please choose a different username.")
         else:
             database.addAccount(username, password)
+            session['signup_success'] = True
             return redirect(url_for('login'))
     
     return render_template("signup.html")
@@ -99,6 +102,7 @@ def view():
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
     session.pop('username', None)
+    session.clear()
     flash("You have been logged out.")
     return redirect(url_for('root'))
 
