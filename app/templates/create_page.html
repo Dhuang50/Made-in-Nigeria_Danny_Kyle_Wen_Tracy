@@ -8,7 +8,12 @@
 </head>
 <body>
     <h1>Create New Blog</h1>
-    <p>Username: {{ uname }}</p>
+    <h2>Owner: {{ uname }}</h2>
+    
+    <form action="/create" method="post">
+        Title of blog: <input type="text" id="blog_title" name="blog_title" required>
+        <input type="submit" value='Create Blog'>
+    </form>
     
     <br>
     
@@ -20,15 +25,6 @@
     
     <form action="/" method="get">
         <button type="submit">Return Home</button>
-    </form>
-    
-    <br>
-    
-    
-    <form method="post">
-        <input type="text" id="blog_title" name="blog_title" required>
-        <br>
-        <button type="submit">Create Blog</button>
     </form>
 </body>
 </html>

@@ -9,11 +9,22 @@
 
 <body>
 
-    user's dashboard
-    <br><br>
-    {{ uname }}<br> {{ passw }}
+    <h1> {{ uname }} dashboard </h1>
     
-    <br><br>
+    <form action= "/create">
+        Make a new blog: <input type="submit" value="Create Blog" name="submit">
+    </form>
+    
+    <form action= "/edit">
+        this should exist for each blog they own <input type="submit" value="Edit Your Blogs (temp)" name="submit">
+    </form>
+    
+    
+    
+    
+    
+    
+    
     
     <form action="/logout">
         <input type="submit" value="Log Out" name="log Out">
@@ -29,16 +40,6 @@
     
     <form action= "/view">
         <input type="submit" value="All blogs" name="submit">
-    </form>
-    
-    <br>
-    
-    <form action= "/edit">
-        this should exist for each blog they own <input type="submit" value="Edit Your Blogs (temp)" name="submit">
-    </form>
-    
-    <form action= "/create">
-        Make a new blog: <input type="submit" value="Create Blog" name="submit">
     </form>
     
 </body>

@@ -40,7 +40,7 @@ def addBlog(owner, blogtitle):
     db = sqlite3.connect("data.db")
     c = db.cursor()
     c.execute(f"Insert INTO blogs VALUES ('{owner}', '{blogtitle}', 0)")
-    c.execute(f"CREATE TABLE IF NOT EXISTS '{owner}''{blogtitle}'(entryID INTEGER, entryTitle, entry TEXT)")
+    c.execute(f"CREATE TABLE IF NOT EXISTS '{owner}_{blogtitle}'(entryID INTEGER, entryTitle, entry TEXT)")
     db.commit()
     db.close()
 
@@ -54,7 +54,7 @@ def addentry(owner, blogtitle, entryTitle, entry):
     db.commit()
     db.close()
 
-def accountExit(username):
+def accountExists(username):
     db = sqlite3.connect("data.db")
     c = db.cursor()
     c.execute(f"SELECT * from accounts WHERE username = '{username}'")
@@ -89,6 +89,12 @@ def get_blog():
     db.close()
     return blogEntries
 
-
+# def blogsFrom(username):
+#     db = sqlite3.connect("data.db")
+#     c = db.cursor()
+#     c.execute(f"SELECT * from blogs WHERE owner = '{username}'")
+#     blogs = c.fetchall()
+#     
+#     return c.fetchall()
     
 

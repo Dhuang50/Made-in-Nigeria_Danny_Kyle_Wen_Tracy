@@ -37,7 +37,7 @@ def login():
         user = database.viewAccount(username)
         
         if user:
-            stored_password = user[0]
+            stored_password = "".join(user[0]) # must join, is tuple
             if password == stored_password:
                 session['username'] = username
                 return redirect(url_for('dashboard'))
@@ -62,12 +62,13 @@ def signup():
     
     return render_template("signup.html")
 
-@app.route("/user", methods=['GET'])
+@app.route("/user", methods=['GET', 'POST'])
 def dashboard():
     if 'username' in session:
         user = database.viewAccount(session['username'])
         if user:
-            return render_template("dashboard.html", uname=session['username'], passw=user[0])
+            ###
+            return render_template("dashboard.html", uname = session['username'])
         else:
             flash("User not found.")
             return redirect(url_for('login'))
