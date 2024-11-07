@@ -38,10 +38,11 @@ def addentry(owner, blogtitle, entryID, entry):
     c.execute(f"Insert INTO {owner}_{blogtitle} VALUES ('{entryID}', '{entry}')")
     db.commit()
     db.close()
+
 def accountExit(username):
     db = sqlite3.connect("data.db")
     c = db.cursor()
-    c.execute(f"SELECT * from accounts WHERE usernmae = '{username}")
+    c.execute(f"SELECT * from accounts WHERE username = '{username}'")
     return c.fetchall() != []
 
 def viewAccount(username):

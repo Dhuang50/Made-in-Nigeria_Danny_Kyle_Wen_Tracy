@@ -12,12 +12,8 @@ Target Ship Date: 2024-11-011
 import sqlite3
 import csv
 import os
-from flask import Flask
-from flask import render_template
-from flask import request
-from flask import session
-from flask import redirect
-from flask import url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
+
 
 import database
 
@@ -32,25 +28,42 @@ def root():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if (request.method == "POST"):
-        database.addAccount(request.form['username'], request.form['pw'])
-    if 'username' in session: # skip login
-        return redirect(url_for('dashboard'))
-    else:
-        return render_template("login.html")
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['pw']
+        user = database.viewAccount(username)
+        
+        if user and len(user) > 0:
+            flash("Username already exists. Please choose a different username.")
+            return redirect(url_for('signup'))
+        else:
+            database.addAccount(username, password)
+            flash("Account created successfully. Please log in.")
+            return redirect(url_for('login'))
+    return render_template("login.html")
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
+    
     return render_template("signup.html")
 
 @app.route("/user", methods=['GET', 'POST'])
 def dashboard():
-    if 'username' in session: # skip login
-        return render_template("dashboard.html", uname = session['username'], passw = database.viewAccount(request.form['username'])[0][0])
+    if 'username' in session:
+        return render_template("dashboard.html", uname=session['username'], passw=user[0][0])
     else:
-        if request.form['pw'] == database.viewAccount(request.form['username'])[0][0]:
-            session['username'] = request.form['username']
-            return render_template("dashboard.html", uname = session['username'], passw = request.form['pw'])
+        if request.method == "POST":
+            username = request.form['username']
+            password = request.form['pw']
+            user = database.viewAccount(username)
+            if user and len(user) > 0 and password == user[0][0]:
+                session['username'] = username
+                return render_template("dashboard.html", uname=username, passw=password)
+            else:
+                flash("Invalid credentials. Please try again.")
+                return redirect(url_for('login'))
+        else:
+            return redirect(url_for('login'))
 
 @app.route("/edit", methods=['GET', 'POST'])
 def edit_page():

@@ -1,25 +1,43 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
-    <title> </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
 </head>
-
 <body>
-
-    create a new page
-
-    <br><br>
+    <h1>User's Dashboard</h1>
+    <p>Username: {{ uname }}</p>
+    <p>Password: {{ passw }}</p>
     
-    <form action= "/view">
-        <input type="submit" value="All blogs" name="submit">
+    <br>
+    
+    <form action="/logout" method="post">
+        <button type="submit">Log Out</button>
     </form>
     
     <br>
     
-    <form action= "/user">
-        <input type="submit" value="Back to your dashboard" name="submit">
+    <form action="/" method="get">
+        <button type="submit">Return Home</button>
     </form>
-
+    
+    <br>
+    
+    <form action="/view" method="get">
+        <button type="submit">All Blogs</button>
+    </form>
+    
+    <br>
+    
+    <form action="/edit" method="get">
+        <button type="submit">Edit Your Blogs (temp)</button>
+    </form>
+    
+    <br>
+    
+    <form action="/create" method="get">
+        <button type="submit">Create Blog</button>
+    </form>
 </body>
-
 </html>
