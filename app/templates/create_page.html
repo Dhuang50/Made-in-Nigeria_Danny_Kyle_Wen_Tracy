@@ -6,9 +6,8 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <h1>User's Dashboard</h1>
+    <h1>Create New Blog</h1>
     <p>Username: {{ uname }}</p>
-    <p>Password: {{ passw }}</p>
     
     <br>
     
@@ -24,19 +23,10 @@
     
     <br>
     
-    <form action="/view" method="get">
-        <button type="submit">All Blogs</button>
-    </form>
     
-    <br>
-    
-    <form action="/edit" method="get">
-        <button type="submit">Edit Your Blogs (temp)</button>
-    </form>
-    
-    <br>
-    
-    <form action="/create" method="get">
+    <form method="post">
+        <input type="text" id="blog_title" name="blog_title" required>
+        <br>
         <button type="submit">Create Blog</button>
     </form>
 </body>

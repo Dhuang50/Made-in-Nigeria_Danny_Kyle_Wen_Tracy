@@ -1,43 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title> </title>
 </head>
+
 <body>
-    <h1>User's Dashboard</h1>
-    <p>Username: {{ uname }}</p>
-    <p>Password: {{ passw }}</p>
+
+    user's dashboard
+    <br><br>
+    {{ uname }}<br> {{ passw }}
     
-    <br>
+    <br><br>
     
-    <form action="/logout" method="post">
-        <button type="submit">Log Out</button>
+    <form action="/logout">
+        <input type="submit" value="Log Out" name="log Out">
     </form>
     
     <br>
     
-    <form action="/" method="get">
-        <button type="submit">Return Home</button>
+    <form action="/">
+        <input type="submit" value="Return Home" name="Return Home">
     </form>
     
     <br>
     
-    <form action="/view" method="get">
-        <button type="submit">All Blogs</button>
+    <form action= "/view">
+        <input type="submit" value="All blogs" name="submit">
     </form>
     
     <br>
     
-    <form action="/edit" method="get">
-        <button type="submit">Edit Your Blogs (temp)</button>
+    <form action= "/edit">
+        this should exist for each blog they own <input type="submit" value="Edit Your Blogs (temp)" name="submit">
     </form>
     
-    <br>
-    
-    <form action="/create" method="get">
-        <button type="submit">Create Blog</button>
+    <form action= "/create">
+        Make a new blog: <input type="submit" value="Create Blog" name="submit">
     </form>
+    
 </body>
+
 </html>
