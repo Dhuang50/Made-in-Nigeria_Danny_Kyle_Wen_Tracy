@@ -22,51 +22,55 @@ import database
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
+
 @app.route("/")
 def root():
     return render_template("main.html")
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if 'username' in session:
-        return redirect(url_for('dashboard'))
-    else:
-        if request.method == "POST":
-            username = request.form['username']
-            password = request.form['pw']
-            user = database.viewAccount(username)
-            
-            if user and len(user) > 0:
-                flash("Username already exists. Please choose a different username.")
-                return redirect(url_for('signup'))
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['pw']
+        user = database.viewAccount(username)
+        
+        if user:
+            stored_password = user[0]
+            if password == stored_password:
+                session['username'] = username
+                return redirect(url_for('dashboard'))
             else:
-                database.addAccount(username, password)
-                flash("Account created successfully. Please log in.")
-                return redirect(url_for('login'))
-        return render_template("login.html")
+                flash("Incorrect password. Please try again.")
+        else:
+            flash("No account found with that username. Please sign up.")
+    
+    return render_template("login.html")
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['pw']
+        if database.accountExists(username):
+            flash("Username already exists. Please choose a different username.")
+        else:
+            database.addAccount(username, password)
+            return redirect(url_for('login'))
     
     return render_template("signup.html")
 
-@app.route("/user", methods=['GET', 'POST'])
+@app.route("/user", methods=['GET'])
 def dashboard():
     if 'username' in session:
-        return render_template("dashboard.html", uname=session['username'], passw=database.viewAccount(session['username'])[0][0])
-    else:
-        if request.method == "POST":
-            username = request.form['username']
-            password = request.form['pw']
-            user = database.viewAccount(username)
-            if user and len(user) > 0 and password == user[0][0]:
-                session['username'] = username
-                return render_template("dashboard.html", uname=username, passw=password)
-            else:
-                flash("Invalid credentials. Please try again.")
-                return redirect(url_for('login'))
+        user = database.viewAccount(session['username'])
+        if user:
+            return render_template("dashboard.html", uname=session['username'], passw=user[0])
         else:
+            flash("User not found.")
             return redirect(url_for('login'))
+    else:
+        flash("You need to log in first.")
+        return redirect(url_for('login'))
 
 @app.route("/edit", methods=['GET', 'POST'])
 def edit_page():
@@ -74,48 +78,29 @@ def edit_page():
 
 @app.route("/create", methods=['GET', 'POST'])
 def create_page():
-    if 'username' in session:
-        if request.method =="POST":
-            database.addBlog(session['username'], request.form['blog_title'])
-            return redirect(url_for('dashboard'))
-        return render_template("create_page.html", uname = session['username'])
-    else:
-        return redirect(url_for('login'))
+    return render_template("create_page.html")
 
 @app.route("/view", methods=['GET', 'POST'])
 def view():
-    if 'username' in session:
-        blogs = database.get_blog()
-        owners = []
-        blogtitles = []
-        blogIDs = []
-        blogEntries = []
-        for (owner, blogtitle), entries in blogs.items():
-            owners.append(owner)
-            blogtitles.append(blogtitle)
-            if entries:
-                for entryID, entry in entries:
-                    blogIDs.append(entryID)
-                    blogEntries.append(entry)
-        return render_template("view.html", owners=owners, blogtitles=blogtitles, blogIDs=blogIDs, blogEntries=blogEntries)
-    else:
-        return redirect(url_for('login'))
-    
-@app.route("/addEntry", methods=['GET', 'POST'])
-def add():
-    if 'username' in session:
-        if request.method =="POST":
-            database.addentry(session['username'], request.form['blog_title'], request.form['entryTitle', request.form['entryContent']])
-            return redirect(url_for('view'))
-        return render_template("add.html", uname = session['username'])
-    else:
-        return redirect(url_for('login'))
+    blogs = database.get_blog()
+    owners = []
+    blogtitles = []
+    blogIDs = []
+    blogEntries = []
+    for (owner, blogtitle), entries in blogs.items():
+        owners.append(owner)
+        blogtitles.append(blogtitle)
+        if entries:
+            for entryID, entry in entries:
+                blogIDs.append(entryID)
+                blogEntries.append(entry)
+    return render_template("view.html", owners=owners, blogtitles=blogtitles, blogIDs=blogIDs, blogEntries=blogEntries)
 
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
-    session.pop('username')
+    session.pop('username', None)
+    flash("You have been logged out.")
     return redirect(url_for('root'))
 
-if __name__ == "__main__": 
-    app.debug = True 
-    app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
