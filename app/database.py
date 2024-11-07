@@ -40,17 +40,22 @@ def addBlog(owner, blogtitle):
     db = sqlite3.connect("data.db")
     c = db.cursor()
     c.execute(f"Insert INTO blogs VALUES ('{owner}', '{blogtitle}', 0)")
+<<<<<<< HEAD
     c.execute(f"CREATE TABLE IF NOT EXISTS '{owner}_{blogtitle}'(entryID INTEGER, entryTitle, entry TEXT)")
+=======
+    c.execute(f"CREATE TABLE IF NOT EXISTS '{owner}{blogtitle}'(entryID INTEGER, entryTitle, entry TEXT)")
+>>>>>>> da0659ea8c48eec2d2e197f410c4df0894dfb262
     db.commit()
     db.close()
 
 def addentry(owner, blogtitle, entryTitle, entry):
     db = sqlite3.connect("data.db")
     c = db.cursor()
-    c.execute(f"SELECT entryCount FROM blogs WHERE (owner = '{owner}' AND blogtitle = '{blogtitle}'")
-    print(c.fetchall())
-    entryID = c.fetchall()[0]+1
-    c.execute(f"Insert INTO {owner}{blogtitle} VALUES ('{entryID}', '{entryTitle}', {entry}')")
+    c.execute(f"SELECT entryCount FROM blogs WHERE owner = '{owner}' AND blogtitle = '{blogtitle}'")
+    num = c.fetchall()[0][0]
+    entryID = int(num)+1
+    c.execute(f"UPDATE blogs SET entryCount = {entryID} WHERE  owner = '{owner}' AND blogtitle = '{blogtitle}'")
+    c.execute(f"Insert INTO '{owner}{blogtitle}' VALUES ('{entryID}', '{entryTitle}', '{entry}')")
     db.commit()
     db.close()
 
@@ -89,6 +94,7 @@ def get_blog():
     db.close()
     return blogEntries
 
+<<<<<<< HEAD
 # def blogsFrom(username):
 #     db = sqlite3.connect("data.db")
 #     c = db.cursor()
@@ -96,5 +102,31 @@ def get_blog():
 #     blogs = c.fetchall()
 #     
 #     return c.fetchall()
+=======
+def get_entries(username, blogtitle):
+    db = sqlite3.connect("data.db")
+    c = db.cursor()
+    c.execute(f"SELECT * FROM '{username}{blogtitle}'")
+    return c.fetchall()
+
+def get_entry(username, blogtitle, entryID):
+    db = sqlite3.connect("data.db")
+    c = db.cursor()
+    c.execute(f"SELECT * FROM '{username}{blogtitle}' WHERE entryID = {entryID}")
+    entry = c.fetchall()
+    return entry
+
+def edit_entry(username, blogtitle, entryID, entryTitle, entry):
+    db = sqlite3.connect("data.db")
+    c = db.cursor()
+    c.execute(f"UPDATE '{username}{blogtitle}' SET entryTitle = '{entryTitle}' WHERE  entryID = {entryID}")
+    c.execute(f"UPDATE '{username}{blogtitle}' SET entry = '{entry}' WHERE  entryID = {entryID}")
+    db.commit()
+    db.close()
+    
+    
+
+
+>>>>>>> da0659ea8c48eec2d2e197f410c4df0894dfb262
     
 

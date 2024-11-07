@@ -23,12 +23,16 @@ app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def root():
-    return render_template("main.html")
+    if 'username' in session:
+        return redirect(url_for('dashboard'))
+    else:
+        return render_template("main.html")
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+<<<<<<< HEAD
     if session.pop('signup_success', None):
         flash("Account created successfully! Please log in.")
     elif request.method == "POST":
@@ -41,12 +45,29 @@ def login():
             if password == stored_password:
                 session['username'] = username
                 return redirect(url_for('dashboard'))
+=======
+    if 'username' in session:
+        return redirect(url_for('dashboard'))
+    else:
+        if session.pop('signup_success', None):
+            flash("Account created successfully! Please log in.")
+        elif request.method == "POST":
+            username = request.form['username']
+            password = request.form['pw']
+            user = database.viewAccount(username)
+            
+            if len(user) > 0:
+                stored_password = user[0][0]
+                if password == stored_password:
+                    session['username'] = username
+                    return redirect(url_for('dashboard'))
+                else:
+                    flash("Incorrect password. Please try again.")
+>>>>>>> da0659ea8c48eec2d2e197f410c4df0894dfb262
             else:
-                flash("Incorrect password. Please try again.")
-        else:
-            flash("No account found with that username. Please sign up.")
-    
-    return render_template("login.html")
+                flash("No account found with that username. Please sign up.")
+        
+        return render_template("login.html")
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
@@ -66,19 +87,31 @@ def signup():
 def dashboard():
     if 'username' in session:
         user = database.viewAccount(session['username'])
+<<<<<<< HEAD
         if user:
             ###
             return render_template("dashboard.html", uname = session['username'])
         else:
             flash("User not found.")
             return redirect(url_for('login'))
+=======
+        return render_template("dashboard.html", uname=session['username'])
+>>>>>>> da0659ea8c48eec2d2e197f410c4df0894dfb262
     else:
-        flash("You need to log in first.")
         return redirect(url_for('login'))
 
 @app.route("/edit", methods=['GET', 'POST'])
 def edit_page():
-    return render_template("edit_page.html")
+    if 'username' in session:
+        entry = database.get_entry(session['username'], session['blogTitle'], session['entryID'])
+        if request.method =="POST":
+            database.edit_entry(session['username'], session['blogTitle'], session['entryID'], request.form['entryTitle'], request.form['entryContent'])
+            return redirect(url_for('view'))
+        print("_________________________")
+        print(entry)
+        return render_template("edit_page.html", entry = entry)
+    else:
+        return redirect(url_for('login'))
 
 @app.route("/create", methods=['GET', 'POST'])
 def create_page():
@@ -86,7 +119,7 @@ def create_page():
         if request.method =="POST":
             database.addBlog(session['username'], request.form['blog_title'])
             flash(f"Blog {request.form['blog_title']} Created Successfully.")
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('view'))
         return render_template("create_page.html", uname = session['username'])
     else:
         return redirect(url_for('login'))
@@ -100,12 +133,25 @@ def view():
         for (owner, blogtitle) in blogs:
             owners.append(owner)
             blogtitles.append(blogtitle)
-        return render_template("view.html", owners=owners, blogtitles=blogtitles)
+        return render_template("view.html", owners=owners, blogtitles=blogtitles, blogs = blogs, user = session['username'])
+    else:
+        return redirect(url_for('login'))
 
 @app.route("/view/<owner>/<blogtitle>", methods=['GET', 'POST'])
 def viewBlog(owner, blogtitle):
-    entries = getBlog(owner,blogtitle)
-    return render_template("viewBlog.html", owner=owner, blogtitle=blogtitle, entries=entries)
+    if 'username' in session:
+        session['author'] = owner
+        session['blogTitle'] = blogtitle
+        entries = database.get_entries(owner,blogtitle)
+        edit = False
+        if session['author'] == session['username']:
+            edit = True
+        if request.method == "POST":
+            session['entryID'] = request.form.get('entryID')
+            return redirect(url_for('edit_page'))
+        return render_template("viewBlog.html", owner=owner, blogtitle=blogtitle, entries=entries, edit = edit)
+    else:
+        return redirect(url_for('login'))
 
 @app.route("/addEntry", methods=['GET', 'POST'])
 def add():
@@ -126,4 +172,4 @@ def logout():
     return redirect(url_for('root'))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=8080)

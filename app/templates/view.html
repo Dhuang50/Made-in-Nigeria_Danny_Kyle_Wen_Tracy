@@ -25,14 +25,11 @@
 
     <br><br>
 
-    {% if blogs %}
+    {% if blogs|length > 0 %}
         {% for owner, blogtitle in blogs %}
             <div>
-                <h3>{{ owner }} - {{ blogtitle }}</h3>
-                <a href="/view/{{ owner }}/{{ blogtitle }}">View Blog</a>
-                <!-- Submit button to add new entries -->
-                <form method="POST" action="/submit/{{ owner }}/{{ blogtitle }}">
-                    <button type="submit">Submit a New Entry</button>
+                <form method="get" action="/view/{{ owner }}/{{ blogtitle }}">
+                    <button type="submit" id = "blogtitle" value = "{{blogtitle}}">{{ owner }} - {{ blogtitle }}</button>
                 </form>
             </div>
         {% endfor %}

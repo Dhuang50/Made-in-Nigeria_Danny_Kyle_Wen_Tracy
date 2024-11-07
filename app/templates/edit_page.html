@@ -9,18 +9,17 @@
 
 <body>
 
-    edit page for owners
+    Edit Entry {{entry[0][0]}}
     
     <br><br>
     
-    <form action= "/view">
-        <input type="submit" value="All blogs" name="submit">
-    </form>
-    
-    <br>
-    
-    <form action= "/user">
-        <input type="submit" value="Back to your dashboard" name="submit">
+    <form method="post">
+        <input type="text" id="entryTitle" value = "{{entry[0][1]}}" name="entryTitle" required>
+        <br>
+        <br>
+        <textarea id="entryContent" name="entryContent" required>"{{entry[0][2]}}"</textarea>
+        <br>
+        <button type="submit">Edit Entry</button>
     </form>
 
 </body>

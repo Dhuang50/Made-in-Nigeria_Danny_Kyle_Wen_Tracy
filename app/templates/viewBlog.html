@@ -13,16 +13,31 @@
     <h1>Viewing Page</h1>
     <h2>Blog Entries:</h2>
 
-    {% if entries %}
+    {% if entries|length > 0 %}
         <ul>
-            {% for entryID, entry in entries %}
+            {% for i in entries %}
                 <li>
-                    <strong>Entry {{ entryID }}:</strong> {{ entry }}
+                    <strong>Entry {{ i[0] }} - {{i[1]}}: <br></strong> {{ i[2] }}
                 </li>
+                {% if edit %}
+                    <form method="POST">
+                        <button type="submit" name="entryID" value = "{{ i[0]}}">Edit</button>
+                    </form>
+                {% endif %}
             {% endfor %}
+            {% if edit %}
+                <form method="get" action="/addEntry" >
+                    <button type="submit">Submit a New Entry</button>
+                </form>
+            {% endif %}
         </ul>
     {% else %}
         <p>No entries yet.</p>
+        {% if edit %}
+                <form method="get" action="/addEntry" >
+                    <button type="submit">Submit a New Entry</button>
+                </form>
+        {% endif %}
     {% endif %}
 
 </body>
