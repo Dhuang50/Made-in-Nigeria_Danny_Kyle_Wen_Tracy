@@ -13,8 +13,8 @@ db = sqlite3.connect("data.db")
 c = db.cursor()
 c.execute('''
           CREATE TABLE IF NOT EXISTS accounts(
-              username TEXT PRIMART KEY, 
-              password_hash TEXT NOT NULL
+              username TEXT PRIMARY KEY, 
+              password TEXT NOT NULL
               )
           '''
         )
