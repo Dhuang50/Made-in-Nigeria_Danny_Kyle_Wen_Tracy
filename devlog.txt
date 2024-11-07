@@ -27,10 +27,20 @@ The design doc has been replaced with the final verion. Adjusted the Readme text
 digestible format. The project description has been added to the Readme. Updated requirements.txt and __init__.py with 
 a new module. 
 
-dannyH -- 2024-11-3
+dannyH -- 2024-11-4
 
 Created database.py and added methods to add information into database. 
 
 tracyY -- 2024-11-5
 
 Made creating tables conditional, added to requirements.txt, created temporary links between webpages.
+
+tracyY, dannyH, WenYZ, KyleL -- 2024-11-6
+
+Finalized links to HTML pages
+Finalized Log in credentials and signups
+Created create blogs and add entries features
+Created methods to retrieve information from database
+adjusted tables in database
+Created edit entries features
+added new html templates (addEntry, viewBlog)
