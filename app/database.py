@@ -54,7 +54,7 @@ def addentry(owner, blogtitle, entryTitle, entry):
     db.commit()
     db.close()
 
-def accountExit(username):
+def accountExists(username):
     db = sqlite3.connect("data.db")
     c = db.cursor()
     c.execute(f"SELECT * from accounts WHERE username = '{username}'")

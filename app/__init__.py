@@ -23,28 +23,34 @@ app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def root():
-    return render_template("main.html")
+    if 'username' in session:
+        return redirect(url_for('dashboard'))
+    else:
+        return render_template("main.html")
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method == "POST":
-        username = request.form['username']
-        password = request.form['pw']
-        user = database.viewAccount(username)
-        
-        if user:
-            stored_password = user[0]
-            if password == stored_password:
-                session['username'] = username
-                return redirect(url_for('dashboard'))
+    if 'username' in session:
+        return redirect(url_for('dashboard'))
+    else:
+        if request.method == "POST":
+            username = request.form['username']
+            password = request.form['pw']
+            user = database.viewAccount(username)
+            
+            if len(user) > 0:
+                stored_password = user[0][0]
+                if password == stored_password:
+                    session['username'] = username
+                    return redirect(url_for('dashboard'))
+                else:
+                    flash("Incorrect password. Please try again.")
             else:
-                flash("Incorrect password. Please try again.")
-        else:
-            flash("No account found with that username. Please sign up.")
-    
-    return render_template("login.html")
+                flash("No account found with that username. Please sign up.")
+        
+        return render_template("login.html")
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
@@ -59,15 +65,11 @@ def signup():
     
     return render_template("signup.html")
 
-@app.route("/user", methods=['GET'])
+@app.route("/user", methods=['GET', 'POST'])
 def dashboard():
     if 'username' in session:
         user = database.viewAccount(session['username'])
-        if user:
-            return render_template("dashboard.html", uname=session['username'], passw=user[0])
-        else:
-            flash("User not found.")
-            return redirect(url_for('login'))
+        return render_template("dashboard.html", uname=session['username'], passw=user[0][0])
     else:
         flash("You need to log in first.")
         return redirect(url_for('login'))
