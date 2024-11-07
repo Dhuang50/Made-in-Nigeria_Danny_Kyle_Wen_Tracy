@@ -96,7 +96,7 @@ def view():
         blogs = database.get_blog()
         owners = []
         blogtitles = []
-        for (owner, blogtitle) blogs:
+        for (owner, blogtitle) in blogs:
             owners.append(owner)
             blogtitles.append(blogtitle)
         return render_template("view.html", owners=owners, blogtitles=blogtitles)
