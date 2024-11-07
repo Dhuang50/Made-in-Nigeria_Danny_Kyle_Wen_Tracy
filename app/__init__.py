@@ -28,19 +28,22 @@ def root():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method == "POST":
-        username = request.form['username']
-        password = request.form['pw']
-        user = database.viewAccount(username)
-        
-        if user and len(user) > 0:
-            flash("Username already exists. Please choose a different username.")
-            return redirect(url_for('signup'))
-        else:
-            database.addAccount(username, password)
-            flash("Account created successfully. Please log in.")
-            return redirect(url_for('login'))
-    return render_template("login.html")
+    if 'username' in session:
+        return redirect(url_for('dashboard'))
+    else:
+        if request.method == "POST":
+            username = request.form['username']
+            password = request.form['pw']
+            user = database.viewAccount(username)
+            
+            if user and len(user) > 0:
+                flash("Username already exists. Please choose a different username.")
+                return redirect(url_for('signup'))
+            else:
+                database.addAccount(username, password)
+                flash("Account created successfully. Please log in.")
+                return redirect(url_for('login'))
+        return render_template("login.html")
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
@@ -95,6 +98,16 @@ def view():
                     blogIDs.append(entryID)
                     blogEntries.append(entry)
         return render_template("view.html", owners=owners, blogtitles=blogtitles, blogIDs=blogIDs, blogEntries=blogEntries)
+    else:
+        return redirect(url_for('login'))
+    
+@app.route("/addEntry", methods=['GET', 'POST'])
+def add():
+    if 'username' in session:
+        if request.method =="POST":
+            database.addentry(session['username'], request.form['blog_title'], request.form['entryTitle', request.form['entryContent']])
+            return redirect(url_for('view'))
+        return render_template("add.html", uname = session['username'])
     else:
         return redirect(url_for('login'))
 

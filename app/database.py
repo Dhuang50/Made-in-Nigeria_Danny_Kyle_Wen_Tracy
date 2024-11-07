@@ -40,17 +40,17 @@ def addBlog(owner, blogtitle):
     db = sqlite3.connect("data.db")
     c = db.cursor()
     c.execute(f"Insert INTO blogs VALUES ('{owner}', '{blogtitle}', 0)")
-    c.execute(f"CREATE TABLE IF NOT EXISTS '{owner}''{blogtitle}'(entryID INTEGER, entry TEXT)")
+    c.execute(f"CREATE TABLE IF NOT EXISTS '{owner}''{blogtitle}'(entryID INTEGER, entryTitle, entry TEXT)")
     db.commit()
     db.close()
 
-def addentry(owner, blogtitle, entry):
+def addentry(owner, blogtitle, entryTitle, entry):
     db = sqlite3.connect("data.db")
     c = db.cursor()
     c.execute(f"SELECT entryCount FROM blogs WHERE (owner = '{owner}' AND blogtitle = '{blogtitle}'")
     print(c.fetchall())
     entryID = c.fetchall()[0]+1
-    c.execute(f"Insert INTO {owner}{blogtitle} VALUES ('{entryID}', '{entry}')")
+    c.execute(f"Insert INTO {owner}{blogtitle} VALUES ('{entryID}', '{entryTitle}', {entry}')")
     db.commit()
     db.close()
 
