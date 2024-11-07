@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css') }}">
     <title>Add New Entries</title>
 </head>
 <body>
@@ -24,9 +25,11 @@
     <br>
     
     <form method="post">
-        <input type="text" id="entryTitle" name="entryTitle" required>
+        <input type="text" id="entryTitle" placeholder = "Entry Title" name="entryTitle" required>
         <br>
-        <input type="text" id="entryContent" name="entryContent" required>
+        <br>
+        <textarea id="entryContent" name="entryContent" required></textarea>
+        <br>
         <button type="submit">Add Entry</button>
     </form>
 </body>

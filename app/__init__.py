@@ -74,12 +74,20 @@ def dashboard():
         user = database.viewAccount(session['username'])
         return render_template("dashboard.html", uname=session['username'])
     else:
-        flash("You need to log in first.")
         return redirect(url_for('login'))
 
 @app.route("/edit", methods=['GET', 'POST'])
 def edit_page():
-    return render_template("edit_page.html")
+    if 'username' in session:
+        entry = database.get_entry(session['username'], session['blogTitle'], session['entryID'])
+        if request.method =="POST":
+            database.edit_entry(session['username'], session['blogTitle'], session['entryID'], request.form['entryTitle'], request.form['entryContent'])
+            return redirect(url_for('view'))
+        print("_________________________")
+        print(entry)
+        return render_template("edit_page.html", entry = entry)
+    else:
+        return redirect(url_for('login'))
 
 @app.route("/create", methods=['GET', 'POST'])
 def create_page():
@@ -96,18 +104,30 @@ def create_page():
 def view():
     if 'username' in session:
         blogs = database.get_blog()
-        print(blogs)
         owners = []
         blogtitles = []
         for (owner, blogtitle) in blogs:
             owners.append(owner)
             blogtitles.append(blogtitle)
-        return render_template("view.html", owners=owners, blogtitles=blogtitles)
+        return render_template("view.html", owners=owners, blogtitles=blogtitles, blogs = blogs, user = session['username'])
+    else:
+        return redirect(url_for('login'))
 
 @app.route("/view/<owner>/<blogtitle>", methods=['GET', 'POST'])
 def viewBlog(owner, blogtitle):
-    entries = database.get_blog(owner,blogtitle)
-    return render_template("viewBlog.html", owner=owner, blogtitle=blogtitle, entries=entries)
+    if 'username' in session:
+        session['author'] = owner
+        session['blogTitle'] = blogtitle
+        entries = database.get_entries(owner,blogtitle)
+        edit = False
+        if session['author'] == session['username']:
+            edit = True
+        if request.method == "POST":
+            session['entryID'] = request.form.get('entryID')
+            return redirect(url_for('edit_page'))
+        return render_template("viewBlog.html", owner=owner, blogtitle=blogtitle, entries=entries, edit = edit)
+    else:
+        return redirect(url_for('login'))
 
 @app.route("/addEntry", methods=['GET', 'POST'])
 def add():
@@ -128,4 +148,4 @@ def logout():
     return redirect(url_for('root'))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=8080)

@@ -50,3 +50,15 @@ margin: 10px 0;
 font-size: 16px;
 }
 
+#entryTitle {
+    width: 70%;
+    margin-left: 5%;
+}
+
+#entryContent {
+    width: 70%;
+    margin-left: 5%;
+    height: 200px;
+
+}
+
