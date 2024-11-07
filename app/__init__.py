@@ -96,19 +96,16 @@ def view():
         blogs = database.get_blog()
         owners = []
         blogtitles = []
-        blogIDs = []
-        blogEntries = []
-        for (owner, blogtitle), entries in blogs.items():
+        for (owner, blogtitle) blogs:
             owners.append(owner)
             blogtitles.append(blogtitle)
-            if entries:
-                for entryID, entry in entries:
-                    blogIDs.append(entryID)
-                    blogEntries.append(entry)
-        return render_template("view.html", owners=owners, blogtitles=blogtitles, blogIDs=blogIDs, blogEntries=blogEntries)
-    else:
-        return redirect(url_for('login'))
-    
+        return render_template("view.html", owners=owners, blogtitles=blogtitles)
+
+@app.route("/view/<owner>/<blogtitle>", methods=['GET', 'POST'])
+def viewBlog(owner, blogtitle):
+    entries = getBlog(owner,blogtitle)
+    return render_template("viewBlog.html", owner=owner, blogtitle=blogtitle, entries=entries)
+
 @app.route("/addEntry", methods=['GET', 'POST'])
 def add():
     if 'username' in session:
