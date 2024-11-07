@@ -96,6 +96,7 @@ def create_page():
 def view():
     if 'username' in session:
         blogs = database.get_blog()
+        print(blogs)
         owners = []
         blogtitles = []
         for (owner, blogtitle) in blogs:
@@ -105,7 +106,7 @@ def view():
 
 @app.route("/view/<owner>/<blogtitle>", methods=['GET', 'POST'])
 def viewBlog(owner, blogtitle):
-    entries = database.getBlog(owner,blogtitle)
+    entries = database.get_blog(owner,blogtitle)
     return render_template("viewBlog.html", owner=owner, blogtitle=blogtitle, entries=entries)
 
 @app.route("/addEntry", methods=['GET', 'POST'])

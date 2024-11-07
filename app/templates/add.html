@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Entries</title>
+</head>
+<body>
+    <h1>Add a new entry to {{blogtitle}}</h1>
+    <p>Username: {{ uname }}</p>
+    
+    <br>
+    
+    <form action="/logout" method="post">
+        <button type="submit">Log Out</button>
+    </form>
+    
+    <br>
+    
+    <form action="/" method="get">
+        <button type="submit">Return Home</button>
+    </form>
+    
+    <br>
+    
+    <form method="post">
+        <input type="text" id="entryTitle" name="entryTitle" required>
+        <br>
+        <input type="text" id="entryContent" name="entryContent" required>
+        <button type="submit">Add Entry</button>
+    </form>
+</body>
+</html>
