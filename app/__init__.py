@@ -77,6 +77,7 @@ def create_page():
     if 'username' in session:
         if request.method =="POST":
             database.addBlog(session['username'], request.form['blog_title'])
+            flash(f"Blog {request.form['blog_title']} Created Successfully.")
             return redirect(url_for('dashboard'))
         return render_template("create_page.html", uname = session['username'])
     else:
@@ -105,9 +106,10 @@ def view():
 def add():
     if 'username' in session:
         if request.method =="POST":
-            database.addentry(session['username'], request.form['blog_title'], request.form['entryTitle', request.form['entryContent']])
+            database.addentry(session['username'], session['blogTitle'], request.form['entryTitle'], request.form['entryContent'])
+            flash("New Entry Added Successfully.")
             return redirect(url_for('view'))
-        return render_template("add.html", uname = session['username'])
+        return render_template("add.html", uname = session['username'], blogtitle = session['blogTitle'])
     else:
         return redirect(url_for('login'))
 
