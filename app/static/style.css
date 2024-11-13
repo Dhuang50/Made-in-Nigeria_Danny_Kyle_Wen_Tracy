@@ -3,53 +3,47 @@ p {font-family: 'Roboto Slab', serif;}
 
 
 html {
-    background-color: #c0f4f7;
+    background-color: #F5F2F0;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #9fe4e7;
+    font-family: Garamond;
+    background-color: #FEFBFA;
     margin: 20px;
+    border-radius: 25px;
+    font-size: 30px;
+    color: #3E592B
 }
 
-
-header {
-    background-color: #cccccc;
-    text-align: center;
-    padding: 10px 0;
+.main{
+    padding-left: 700px;
 }
 
 h1 {
-    color: #333333;
+    color: #3D562B;
     font-size:55px;
-    font-family: "Arial";
-    padding: 12px;
+    font-family: "Garamond";
+    padding: 20px;
     text-align: center;
     font-style: italic; 
     font-weight: bold;
-    border-style: solid;
-    border-color: black;
-    border-width: 1px;
-    background-color: rgba(255,0,0,0.5)
-}
+    background-color: #C8D6BE;
+    border-radius: 25px;
 }
 
-label {
-    font-size: 30px;
-    color: #000000;
-}
 
 button {
     font-size: 20px;
-    color: #000000;
-    background-color: #cccccc;
-    border: 3px solid #000000;
+    color: #3E592B;
+    background-color: #BBC0B8;
+    border: 1px solid #000000;
     padding: 10px 20px;
     margin: 10px;
+    border-radius: 15px;
 }
 
 button:hover {
-    background-color: #0c4fb3;
+    background-color: #3E592B;
     color: white;
   }
 

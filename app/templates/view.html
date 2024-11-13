@@ -26,6 +26,7 @@
     <br><br>
 
     {% if blogs|length > 0 %}
+        <p> All blogs: </p>
         {% for owner, blogtitle in blogs %}
             <div>
                 <form method="get" action="/view/{{ owner }}/{{ blogtitle }}">
