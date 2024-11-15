@@ -33,6 +33,7 @@
 
     <!-- Display list of blogs if there are any -->
     {% if blogs|length > 0 %}
+        <p> All blogs: </p>
         {% for owner, blogtitle in blogs %}
             <div>
                 <!-- Button to view specific blog, redirects to /view/{owner}/{blogtitle} -->

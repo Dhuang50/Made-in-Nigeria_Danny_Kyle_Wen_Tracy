@@ -44,3 +44,7 @@ Created methods to retrieve information from database
 adjusted tables in database
 Created edit entries features
 added new html templates (addEntry, viewBlog)
+
+tracyY -- 2024-11-13
+
+minor css changes
