@@ -3,26 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css') }}">
+    <!-- Link to the CSS file in the static folder for styling -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>Create Blogs</title>
 </head>
 <body>
+    <!-- Display a heading for blog creation and the owner's username -->
     <h1>Create New Blog</h1>
     <h2>Owner: {{ uname }}</h2>
     
+    <!-- Form to create a new blog, sends a POST request to the '/create' route -->
     <form action="/create" method="post">
+        <!-- Input field for the blog title, required to be filled -->
         Title of blog: <input type="text" id="blog_title" name="blog_title" required>
-        <input type="submit" value='Create Blog'>
+        <!-- Submit button to create the blog -->
+        <input type="submit" value="Create Blog">
     </form>
     
     <br>
     
+    <!-- Logout form to log the user out, sends a POST request to the '/logout' route -->
     <form action="/logout" method="post">
         <button type="submit">Log Out</button>
     </form>
     
     <br>
     
+    <!-- Button to return to the home page, sends a GET request to the '/' route -->
     <form action="/" method="get">
         <button type="submit">Return Home</button>
     </form>

@@ -3,33 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css') }}">
+    <!-- Link to the CSS file in the static folder for styling -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>Add New Entries</title>
 </head>
 <body>
-    <h1>Add a new entry to {{blogtitle}}</h1>
+    <!-- Display the blog title and username dynamically -->
+    <h1>Add a new entry to {{ blogtitle }}</h1>
     <p>Username: {{ uname }}</p>
     
     <br>
     
+    <!-- Logout form with a button to log the user out -->
     <form action="/logout" method="post">
         <button type="submit">Log Out</button>
     </form>
     
     <br>
     
+    <!-- Button to return to the home page -->
     <form action="/" method="get">
         <button type="submit">Return Home</button>
     </form>
     
     <br>
     
+    <!-- Form to add a new blog entry -->
     <form method="post">
-        <input type="text" id="entryTitle" placeholder = "Entry Title" name="entryTitle" required>
+        <!-- Input field for entry title -->
+        <input type="text" id="entryTitle" placeholder="Entry Title" name="entryTitle" required>
         <br>
         <br>
+        <!-- Text area for entry content -->
         <textarea id="entryContent" name="entryContent" required></textarea>
         <br>
+        <!-- Submit button to add the entry -->
         <button type="submit">Add Entry</button>
     </form>
 </body>

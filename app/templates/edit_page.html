@@ -1,24 +1,33 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css') }}">
-    <title> Edit Page </title>
+    <!-- Link to the CSS file for styling, loaded from the static folder -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Edit Page</title>
 </head>
 
 <body>
-
-    Edit Entry {{entry[0][0]}}
+    <!-- Display the entry ID or title dynamically for the editing page -->
+    <h1>Edit Entry {{ entry[0][0] }}</h1>
     
-    <br><br>
+    <br>
     
+    <!-- Form to edit the entry's title and content -->
     <form method="post">
-        <input type="text" id="entryTitle" value = "{{entry[0][1]}}" name="entryTitle" required>
-        <br>
-        <br>
-        <textarea id="entryContent" name="entryContent" required>"{{entry[0][2]}}"</textarea>
-        <br>
+        <!-- Pre-fill the title input with the current title, marked as required -->
+        <label for="entryTitle">Entry Title:</label>
+        <input type="text" id="entryTitle" value="{{ entry[0][1] }}" name="entryTitle" required>
+        <br><br>
+        
+        <!-- Pre-fill the content textarea with the current content, marked as required -->
+        <label for="entryContent">Entry Content:</label>
+        <textarea id="entryContent" name="entryContent" required>{{ entry[0][2] }}</textarea>
+        <br><br>
+        
+        <!-- Button to submit the edited entry -->
         <button type="submit">Edit Entry</button>
     </form>
 

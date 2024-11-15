@@ -3,40 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css') }}">
-    <title> Dashboard </title>
+    <!-- Link to the CSS file for styling, dynamically loaded from the static folder -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Dashboard</title>
 </head>
 
 <body>
-
-    User's dashboard
-    <br><br>
-    {{ uname }}
+    <!-- Displaying the user's dashboard -->
+    <h1>User's Dashboard</h1>
     
-    <br><br>
+    <!-- Display the username dynamically -->
+    <p>{{ uname }}</p>
     
+    <br>
+    
+    <!-- Form to log out, sends a GET request to the '/logout' route -->
     <form action="/logout">
         <input type="submit" value="Log Out" name="log Out">
     </form>
     
     <br>
     
+    <!-- Form to return to the home page, sends a GET request to the '/' route -->
     <form action="/">
         <input type="submit" value="Return Home" name="Return Home">
     </form>
     
     <br>
     
-    <form action= "/view">
+    <!-- Form to view all blogs, sends a GET request to the '/view' route -->
+    <form action="/view">
         <input type="submit" value="All blogs" name="submit">
     </form>
     
     <br>
     
-    <form action= "/create">
+    <!-- Form to create a new blog, sends a GET request to the '/create' route -->
+    <form action="/create">
         Make a new blog: <input type="submit" value="Create Blog" name="submit">
     </form>
     
 </body>
-
 </html>

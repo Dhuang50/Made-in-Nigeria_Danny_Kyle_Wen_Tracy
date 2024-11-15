@@ -1,44 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css') }}">
+    <!-- Link to the CSS file for styling, dynamically loaded from the static folder -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>View Blogs</title>
 </head>
+
 <body>
+    <!-- Button to return to the home page -->
     <form action="/" method="get">
         <button type="submit">Return Home</button>
     </form>
+    
+    <!-- Page title and section heading -->
     <h1>Viewing Page</h1>
     <h2>Blog Entries:</h2>
 
+    <!-- Check if there are any entries to display -->
     {% if entries|length > 0 %}
         <ul>
             {% for i in entries %}
+                <!-- Display each entry with its ID, title, and content -->
                 <li>
-                    <strong>Entry {{ i[0] }} - {{i[1]}}: <br></strong> {{ i[2] }}
+                    <strong>Entry {{ i[0] }} - {{ i[1] }}: <br></strong> {{ i[2] }}
                 </li>
+                
+                <!-- Edit button, shown only if the user has editing permissions -->
                 {% if edit %}
                     <form method="POST">
-                        <button type="submit" name="entryID" value = "{{ i[0]}}">Edit</button>
+                        <button type="submit" name="entryID" value="{{ i[0] }}">Edit</button>
                     </form>
                 {% endif %}
             {% endfor %}
+
+            <!-- Button to add a new entry, shown only if the user has editing permissions -->
             {% if edit %}
-                <form method="get" action="/addEntry" >
+                <form method="get" action="/addEntry">
                     <button type="submit">Submit a New Entry</button>
                 </form>
             {% endif %}
         </ul>
     {% else %}
+        <!-- Message displayed if there are no entries -->
         <p>No entries yet.</p>
+        
+        <!-- Option to add a new entry if user has editing permissions -->
         {% if edit %}
-                <form method="get" action="/addEntry" >
-                    <button type="submit">Submit a New Entry</button>
-                </form>
+            <form method="get" action="/addEntry">
+                <button type="submit">Submit a New Entry</button>
+            </form>
         {% endif %}
     {% endif %}
 
 </body>
+
 </html>

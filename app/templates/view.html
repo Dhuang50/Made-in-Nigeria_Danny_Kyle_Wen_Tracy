@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css') }}">
+    <!-- Link to the CSS file for styling, dynamically loaded from the static folder -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>View Blogs</title>
 </head>
+
 <body>
+    <!-- Main heading for the blog viewing page -->
     <h1>Viewing Page</h1>
     
+    <!-- Display flash messages if there are any (e.g., notifications or errors) -->
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -19,23 +24,30 @@
 
     <br><br>
 
+    <!-- Button to return to the home page -->
     <form action="/" method="get">
         <button type="submit">Return Home</button>
     </form>
 
     <br><br>
 
+    <!-- Display list of blogs if there are any -->
     {% if blogs|length > 0 %}
         {% for owner, blogtitle in blogs %}
             <div>
+                <!-- Button to view specific blog, redirects to /view/{owner}/{blogtitle} -->
                 <form method="get" action="/view/{{ owner }}/{{ blogtitle }}">
-                    <button type="submit" id = "blogtitle" value = "{{blogtitle}}">{{ owner }} - {{ blogtitle }}</button>
+                    <button type="submit" id="blogtitle" value="{{ blogtitle }}">
+                        {{ owner }} - {{ blogtitle }}
+                    </button>
                 </form>
             </div>
         {% endfor %}
     {% else %}
+        <!-- Message displayed if no blogs are found -->
         <p>No blogs found.</p>
     {% endif %}
 
 </body>
+
 </html>

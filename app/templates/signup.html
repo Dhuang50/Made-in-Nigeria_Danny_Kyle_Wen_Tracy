@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css') }}">
-  <title> Signup </title>
+  <!-- Link to the CSS file for styling, dynamically loaded from the static folder -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <title>Signup</title>
 </head>
 
 <body>
-    
-  <h1> Signup </h1>
+  
+  <!-- Main heading for the signup page -->
+  <h1>Signup</h1>
+  
+  <!-- Display flash messages, if any (e.g., username already exists) -->
   {% with messages = get_flashed_messages() %}
     {% if messages %}
       {% for message in messages %}
@@ -18,16 +23,20 @@
     {% endif %}
   {% endwith %}
 
+  <!-- Signup form for creating a new account -->
+  <form method="POST">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <br><br>
 
-
-    <form method="POST">
-      Username: <input type="text" name="username" required>
-      <br><br>
-      Password: <input type="text" name="pw" required>
-      <br><br>
-      <button type="submit"> Create Account </button>
-    </form>
+    <label for="pw">Password:</label>
+    <input type="password" id="pw" name="pw" required>
+    <br><br>
     
+    <!-- Submit button to create the account -->
+    <button type="submit">Create Account</button>
+  </form>
+  
 </body>
 
 </html>
